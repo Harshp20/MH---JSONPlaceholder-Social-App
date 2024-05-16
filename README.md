@@ -1,3 +1,8 @@
+# JSONPlaceholder Management System Dashboard App
+## How to run
+1. Run `npm install` using latest node version.
+2. Run `npm run dev` to fire up the app on localhost.
+   
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
