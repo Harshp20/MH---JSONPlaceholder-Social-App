@@ -16,9 +16,9 @@ export type TJSONPlaceholderContext = {
   userList: null | any
   currentUser: any
   postList: null | any
-  getPostsByPage: (page: number, limit?: number) => Promise<any>
+  getPostsByPage: (page: number, signal: AbortSignal, limit?: number) => Promise<any>
   todoList: null | any
-  getTodosByUser: (page: number, userId: number, limit?: number) => Promise<any>
+  getTodosByUser: (page: number, userId: number, signal: AbortSignal, limit?: number) => Promise<any>
   setCurrentPost: React.Dispatch<any>
   isLoading: boolean
   setIsLoading: React.Dispatch<boolean>

@@ -149,13 +149,13 @@ const JSONPlaceholderProvider = ({ children }: TChildren) => {
     })
   }
 
-  const getPostsByPage = (page: number, userId?: number, limit: number = 5) => {
+  const getPostsByPage = (page: number, signal: AbortSignal, userId?: number, limit: number = 5) => {
     setIsLoading(true)
     return new Promise(async (resolve, reject) => {
       try {
         let postData: any = null;
         if (userId) {
-          const { data } = await axios.get(`${baseURL}/posts?userId=${userId}&_start=${page}&_limit=${limit}`);
+          const { data } = await axios.get(`${baseURL}/posts?userId=${userId}&_start=${page}&_limit=${limit}`, { signal });
           
           if (!data) {
             setIsLoading(false)
@@ -164,7 +164,7 @@ const JSONPlaceholderProvider = ({ children }: TChildren) => {
 
           postData = data
           } else {
-          const { data } = await axios.get(`${baseURL}/posts?_start=${page}&_limit=${limit}`);
+          const { data } = await axios.get(`${baseURL}/posts?_start=${page}&_limit=${limit}`, { signal });
           
           if (!data) {
             setIsLoading(false)
@@ -186,11 +186,11 @@ const JSONPlaceholderProvider = ({ children }: TChildren) => {
     })
   }
 
-  const getTodosByUser = (page: number, userId: number, limit: number = 5) => {
+  const getTodosByUser = (page: number, userId: number, signal: AbortSignal, limit: number = 5) => {
     setTodoListIsLoading(true)
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await axios.get(`${baseURL}/todos?userId=${userId}&_start=${page}&_limit=${limit}`);
+        const { data } = await axios.get(`${baseURL}/todos?userId=${userId}&_start=${page}&_limit=${limit}`, { signal });
         
         if (!data) {
           setTodoListIsLoading(false)

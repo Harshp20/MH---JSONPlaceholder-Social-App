@@ -6,6 +6,7 @@ import Post from "./Post";
 import PostListSkeleton from "./skeletons/PostListSkeleton";
 import Error from "./Error";
 import { PostListProps } from "../types";
+import axios from "axios";
 
 const UserList = ({ userId }: PostListProps) => {
   const { isError, setIsError, currentUser, postList, getPostsByPage, setCurrentPost, isLoading } = useContext(JSONPlaceholderContext)
@@ -14,8 +15,10 @@ const UserList = ({ userId }: PostListProps) => {
   useEffect(() => {
     setCurrentPost(null)
     setIsError(false)
+    const controller = new AbortController()
+    const signal = controller.signal
     if (userId) {
-      toast.promise(getPostsByPage(page, userId),
+      toast.promise(getPostsByPage(page, signal, userId),
       {
         error: {
           render() {
@@ -25,7 +28,7 @@ const UserList = ({ userId }: PostListProps) => {
         }
       })
     } else {
-      toast.promise(getPostsByPage(page),
+      toast.promise(getPostsByPage(page, signal),
       {
         error: {
           render() {
@@ -34,6 +37,10 @@ const UserList = ({ userId }: PostListProps) => {
           hideProgressBar: true
         }
       })
+    }
+
+    return () => {
+      controller.abort()
     }
   }, [page])
 

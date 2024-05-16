@@ -13,7 +13,9 @@ const TodoList = ({ userId }: TodoListProps) => {
 
   useEffect(() => {
     setIsError(false)
-    toast.promise(getTodosByUser(page, userId),
+    const controller = new AbortController()
+    const signal = controller.signal
+    toast.promise(getTodosByUser(page, userId, signal),
     {
       error: {
         render() {
@@ -22,6 +24,10 @@ const TodoList = ({ userId }: TodoListProps) => {
         hideProgressBar: true
       }
     })
+
+    return () => {
+      controller.abort()
+    }
   }, [page])
 
   const goToPrevPage = () => {
