@@ -6,7 +6,7 @@ import BackButton from './BackButton'
 import PostDetailSkeleton from './skeletons/PostDetailSkeleton'
 import Error from './Error'
 
-const UserDetails = () => {
+const PostDetails = () => {
   const { id } = useParams()
   const { isError, setIsError, currentUser, currentPost, getPostById } = useContext(JSONPlaceholderContext)
 
@@ -62,4 +62,4 @@ const UserDetails = () => {
   );
 }
 
-export default UserDetails;
+export default PostDetails;
