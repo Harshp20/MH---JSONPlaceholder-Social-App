@@ -6,9 +6,8 @@ import Post from "./Post";
 import PostListSkeleton from "./skeletons/PostListSkeleton";
 import Error from "./Error";
 import { PostListProps } from "../types";
-import axios from "axios";
 
-const UserList = ({ userId }: PostListProps) => {
+const PostList = ({ userId }: PostListProps) => {
   const { isError, setIsError, currentUser, postList, getPostsByPage, setCurrentPost, isLoading } = useContext(JSONPlaceholderContext)
   const [page, setPage] = useState(0)
 
@@ -17,27 +16,17 @@ const UserList = ({ userId }: PostListProps) => {
     setIsError(false)
     const controller = new AbortController()
     const signal = controller.signal
-    if (userId) {
-      toast.promise(getPostsByPage(page, signal, userId),
-      {
-        error: {
-          render() {
-            return 'Couldn\'t fetch posts'
-          }, 
-          hideProgressBar: true
-        }
-      })
-    } else {
-      toast.promise(getPostsByPage(page, signal),
-      {
-        error: {
-          render() {
-            return 'Couldn\'t fetch posts'
-          }, 
-          hideProgressBar: true
-        }
-      })
-    }
+    
+    toast.promise(() => {
+      return userId ? getPostsByPage(page, signal, userId) : getPostsByPage(page, signal)},
+    {
+      error: {
+        render() {
+          return 'Couldn\'t fetch posts'
+        }, 
+        hideProgressBar: true
+      }
+    })
 
     return () => {
       controller.abort()
@@ -71,4 +60,4 @@ const UserList = ({ userId }: PostListProps) => {
   );
 }
 
-export default UserList;
+export default PostList;

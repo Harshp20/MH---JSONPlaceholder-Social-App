@@ -1,3 +1,4 @@
+import React from "react";
 import { UserListPaginationProps } from "../types";
 
 const UserListPagination = ({ page, setPage }: UserListPaginationProps) => {
@@ -19,4 +20,4 @@ const UserListPagination = ({ page, setPage }: UserListPaginationProps) => {
   );
 }
 
-export default UserListPagination;
+export default React.memo(UserListPagination);
