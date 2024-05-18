@@ -11,10 +11,10 @@ const Navbar = ({ dark, darkModeHandler }: TNavbar) => {
   const [searchUserQuery, setSearchUserQuery] = useState('')
   const { currentPage, setCurrentPage, setCurrentUser, searchUserByFullName } = useContext(JSONPlaceholderContext)
   const navigate = useNavigate()  
+  console.count('Navbar')
 
   const handleSearch = async (e: FormEvent) => {
     e.preventDefault()
-    setCurrentUser(null)
     try {
       const userId = await searchUserByFullName(searchUserQuery)
 
